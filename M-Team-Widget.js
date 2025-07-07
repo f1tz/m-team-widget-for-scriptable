@@ -99,7 +99,7 @@ function createWidget(userData) {
   idText.font = Font.mediumSystemFont(12);
   
   const joinDays = getDaysDifference(userData.createdDate);
-  const joinText = firstRow.addText(` 📅 ${joinDays}Days`);
+  const joinText = firstRow.addText(` 📅 ${joinDays}`);
   joinText.font = Font.mediumSystemFont(12);
   
   widget.addSpacer(2);
