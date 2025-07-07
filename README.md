@@ -4,6 +4,8 @@
 
 一个用于显示M-Team用户信息的iOS Scriptable小组件。
 
+![preview](./mteam-scriptable.png)
+
 ## 中文版本
 
 ## 功能特点
@@ -114,6 +116,8 @@ iOS会自动刷新小组件，但您也可以：
 ## English Version
 
 An iOS Scriptable widget for displaying M-Team user information.
+
+![preview](./mteam-scriptable.png)
 
 ## Features
 
