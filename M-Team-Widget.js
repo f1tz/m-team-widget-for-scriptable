@@ -62,7 +62,6 @@ async function getUserData() {
 // 创建小组件
 function createWidget(userData) {
   const widget = new ListWidget();
-  widget.backgroundColor = new Color("#1C1C1E");
   widget.spacing = 2;
   
   // 标题栏
@@ -85,18 +84,17 @@ function createWidget(userData) {
   
 
   // 更新时间
-  const usernameText = titleStack.addText(updateTime);
-  usernameText.font = Font.mediumSystemFont(8);
-  usernameText.textColor = Color.white();
+  const updateText = titleStack.addText(updateTime);
+  updateText.font = Font.mediumSystemFont(8);
   
   widget.addSpacer(4);
   
-  // 第一行：用户名
+  // 第一行：用户名和加入天数
   const firstRow = widget.addStack();
   firstRow.layoutHorizontally();
   
-  const idText = firstRow.addText(`👤 ${userData.username}`);
-  idText.font = Font.mediumSystemFont(12);
+  const usernameText = firstRow.addText(`👤 ${userData.username}`);
+  usernameText.font = Font.mediumSystemFont(12);
   
   firstRow.addSpacer();
 
@@ -120,8 +118,7 @@ function createWidget(userData) {
   const uploadCountText = secondRow.addText(`📤 ${userData.memberCount.uploadReset}`);
   uploadCountText.font = Font.mediumSystemFont(12);
 
-  
-  
+
   widget.addSpacer(2);
   
   // 第三行：上传量
@@ -145,7 +142,6 @@ function createWidget(userData) {
 
   const bonusText = fifthRow.addText(`✨ ${parseFloat(userData.memberCount.bonus).toFixed(1)}`);
   bonusText.font = Font.mediumSystemFont(12);
-
 
 
   return widget;
