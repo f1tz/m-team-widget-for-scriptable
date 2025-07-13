@@ -59,8 +59,32 @@ async function getUserData() {
   }
 }
 
+// 获取消息统计数据
+async function getMessageData() {
+  try {
+    const request = new Request("https://api.m-team.cc/api/msg/notify/statistic");
+    request.method = "POST";
+    request.headers = {
+      "X-Api-Key": apiKey,
+      "Content-Type": "application/x-www-form-urlencoded",
+      "User-Agent": "M-Team-Widget/1.0"
+    };
+    
+    const response = await request.loadJSON();
+    
+    if (response.code === "0") {
+      return response.data;
+    } else {
+      throw new Error(response.message || "Message API request failed.");
+    }
+  } catch (error) {
+    console.error("Failed to retrieve message data:", error);
+    throw error;
+  }
+}
+
 // 创建小组件
-function createWidget(userData) {
+function createWidget(userData, messageData) {
   const widget = new ListWidget();
   widget.spacing = 2;
   
@@ -121,11 +145,19 @@ function createWidget(userData) {
 
   widget.addSpacer(2);
   
-  // 第三行：上传量
+  // 第三行：上传量和未读消息
   const thirdRow = widget.addStack();
+  thirdRow.layoutHorizontally();
+  
   const uploadText = thirdRow.addText(`⬆️ ${formatBytes(parseInt(userData.memberCount.uploaded))}`);
   uploadText.font = Font.mediumSystemFont(12);
   uploadText.textColor = new Color("#34C759");
+  
+  thirdRow.addSpacer();
+  
+  const unreadMessages = messageData ? messageData.unMake : "0";
+  const messageText = thirdRow.addText(`📫${unreadMessages}`);
+  messageText.font = Font.mediumSystemFont(12);
   
   widget.addSpacer(2);
   
@@ -171,7 +203,16 @@ function createErrorWidget(error) {
 async function main() {
   try {
     const userData = await getUserData();
-    const widget = createWidget(userData);
+    let messageData = null;
+    
+    // 尝试获取消息数据，如果失败则继续运行
+    try {
+      messageData = await getMessageData();
+    } catch (error) {
+      console.error("获取消息数据失败:", error);
+    }
+    
+    const widget = createWidget(userData, messageData);
     
     if (config.runsInWidget) {
       Script.setWidget(widget);
