@@ -54,20 +54,9 @@
 - **标题栏**: MTEAM + 最后更新时间
 - **第一行**: 👤 用户名 + 📅 加入天数
 - **第二行**: 📊 分享率（绿色≥1.0，红色<1.0）+ 📤 发布数量
-- **第三行**: ⬆️ 上传量
+- **第三行**: ⬆️ 上传量 + 📫 未读消息数量
 - **第四行**: ⬇️ 下载量
 - **第五行**: ✨ 魔力值
-
-## 颜色说明
-
-- **标题**: 金黄色（#efcd6b）
-- **更新时间**: 白色
-- **用户名**: 白色
-- **上传量**: 绿色（#34C759）
-- **下载量**: 深红色（#821c0c）
-- **分享率**: 绿色（≥1.0）/ 红色（<1.0）
-- **发布数量**: 白色
-- **魔力值**: 白色
 
 ## 错误处理
 
@@ -98,13 +87,19 @@ iOS会自动刷新小组件，但您也可以：
 
 ## 技术细节
 
-- 使用M-Team API: `https://api.m-team.cc/api/member/profile`
+- 使用M-Team API: 
+  - `https://api.m-team.cc/api/member/profile` (用户信息)
+  - `https://api.m-team.cc/api/msg/notify/statistic` (消息统计)
 - 支持的组件尺寸: 小（Small）
 - 自动格式化字节单位（B, KB, MB, GB, TB）
 - 自动计算加入天数
 - 分享率精确到小数点后2位
+- 消息API失败时自动降级运行
 
 ## 更新日志
+
+### v1.0.1
+- 新增未读消息提醒
 
 ### v1.0.0
 - 首次发布
@@ -165,20 +160,9 @@ The widget will display the following information:
 - **Title bar**: MTEAM + Last update time
 - **First row**: 👤 Username + 📅 Join days
 - **Second row**: 📊 Share ratio (green ≥1.0, red <1.0) + 📤 Upload count
-- **Third row**: ⬆️ Upload amount
+- **Third row**: ⬆️ Upload amount + 📫 Unread messages count
 - **Fourth row**: ⬇️ Download amount
 - **Fifth row**: ✨ Bonus points
-
-## Color Scheme
-
-- **Title**: Golden yellow (#efcd6b)
-- **Update time**: White
-- **Username**: White
-- **Upload amount**: Green (#34C759)
-- **Download amount**: Dark red (#821c0c)
-- **Share ratio**: Green (≥1.0) / Red (<1.0)
-- **Upload count**: White
-- **Bonus points**: White
 
 ## Error Handling
 
@@ -209,13 +193,19 @@ iOS automatically refreshes widgets, but you can also:
 
 ## Technical Details
 
-- Uses M-Team API: `https://api.m-team.cc/api/member/profile`
+- Uses M-Team API: 
+  - `https://api.m-team.cc/api/member/profile` (User profile)
+  - `https://api.m-team.cc/api/msg/notify/statistic` (Message statistics)
 - Supported widget size: Small
 - Automatically formats byte units (B, KB, MB, GB, TB)
 - Automatically calculates join days
 - Share ratio precise to 2 decimal places
+- Graceful degradation when message API fails
 
 ## Changelog
+
+### v1.0.1
+- Added unread message notifications
 
 ### v1.0.0
 - Initial release
